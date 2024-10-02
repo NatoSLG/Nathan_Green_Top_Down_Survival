@@ -1,0 +1,35 @@
+Survival Game Ideas
+
+MAKE SOMETHING YOU CAN MAKE, DONT CREATE IDEAS THAT ARE UNREACHABLE AT THIS TIME
+
+2d top down survival
+don't starve-like(either 1 life or unlimited)
+
+character:
+-start with 1 playable character(possibly add more in the future)
+-could create 2 characters for both gender
+
+Map:
+-randomly generated, not sure how large or if it should be infinite
+-start with 1 biome and can expand from that
+
+mechanics:
+-standard survival game skills. Woodcutting, mining, fishing.
+-different types/size of bonfires to create light, warmth, enhance cooking chance(depending on size), and health boost
+-player must sleep by the end of the day or death/pass out(harvest moon mech)
+-can sleep on plain ground, sleeping bag, or bed ect
+-cooked food heals instantly rather than over time
+-skills(survival skills stated above) can level up
+-landfill can be placed to fill in water
+-attack bushes and something pops out
+
+monuments:
+bush maze
+
+water spawn seed:
+78467
+48670
+38319 cords -19x -366y
+
+WORK ON GAME MANAGER(ADD INV SYSTEM, DIFFERENT SCENES) WIP
+create a class for each edge tile for each biome, this will create organization of the edge tiles.

@@ -249,60 +249,60 @@ public class MapGenerator : MonoBehaviour
                         tile = GetRandomPrefab(waterPrefab);
                     }
 
-                    // Check for biome edges and place transition tiles with rotation
-                    var (edgeTilePrefab, rotation) = createEdgeTiles.GetEdgeTile(tileCoord, terrainType);
-                    GameObject prefabToInstantiate = edgeTilePrefab ?? tile;
-                    Quaternion prefabRotation = edgeTilePrefab != null ? rotation : Quaternion.identity;
-                    
-                    GameObject spawnedTile = Instantiate(prefabToInstantiate, position, prefabRotation);
-                    spawnedTile.name = string.Format("{0} x{1}, y{2}", tile.name, x, y);
-                    spawnedTile.transform.parent = mapGenerator.transform; // Set the parent to MapGenerator
-                    activeTiles[tileCoord] = spawnedTile;
-
-                    // Store detailed tile data
-                    tileMapData[tileCoord] = new TileData
-                    {
-                        terrainType = terrainType,
-                        prefab = prefabToInstantiate,
-                        rotation = prefabRotation
-                    };
-
-                    activeTiles[tileCoord] = spawnedTile;
-
-                    // *** Check if props have been previously generated for this chunk ***
-                    if (!chunkProps.ContainsKey(tileCoord))
-                    {
-                        // If not, generate and store props
-                        var (propPrefab, propRotation) = createTerrainProps.PlaceProps(tileCoord, terrainType);
-                        if (propPrefab != null)
-                        {
-                            GameObject spawnedProp = Instantiate(propPrefab, position, propRotation);
-                            spawnedProp.transform.parent = spawnedTile.transform; // Make the prop a child of the tile
-
-                            // Store prop data in the dictionary
-                            if (!chunkProps.ContainsKey(tileCoord))
-                            {
-                                chunkProps[tileCoord] = new List<PropData>();
-                            }
-
-                            PropData propData = new PropData
-                            {
-                                prefab = propPrefab,
-                                position = position,
-                                rotation = propRotation
-                            };
-                            chunkProps[tileCoord].Add(propData);
-                        }
-                    }
-                    else
-                    {
-                        // If props have been generated, reload them
-                        foreach (var propData in chunkProps[tileCoord])
-                        {
-                            GameObject spawnedProp = Instantiate(propData.prefab, propData.position, propData.rotation);
-                            spawnedProp.transform.parent = spawnedTile.transform;
-                        }
-                    }
+                    //// Check for biome edges and place transition tiles with rotation
+                    //var (edgeTilePrefab, rotation) = createEdgeTiles.GetEdgeTile(tileCoord, terrainType);
+                    //GameObject prefabToInstantiate = edgeTilePrefab ?? tile;
+                    //Quaternion prefabRotation = edgeTilePrefab != null ? rotation : Quaternion.identity;
+                    //
+                    //GameObject spawnedTile = Instantiate(prefabToInstantiate, position, prefabRotation);
+                    //spawnedTile.name = string.Format("{0} x{1}, y{2}", tile.name, x, y);
+                    //spawnedTile.transform.parent = mapGenerator.transform; // Set the parent to MapGenerator
+                    //activeTiles[tileCoord] = spawnedTile;
+                    //
+                    //// Store detailed tile data
+                    //tileMapData[tileCoord] = new TileData
+                    //{
+                    //    terrainType = terrainType,
+                    //    prefab = prefabToInstantiate,
+                    //    rotation = prefabRotation
+                    //};
+                    //
+                    //activeTiles[tileCoord] = spawnedTile;
+                    //
+                    //// *** Check if props have been previously generated for this chunk ***
+                    //if (!chunkProps.ContainsKey(tileCoord))
+                    //{
+                    //    // If not, generate and store props
+                    //    var (propPrefab, propRotation) = createTerrainProps.PlaceProps(tileCoord, terrainType);
+                    //    if (propPrefab != null)
+                    //    {
+                    //        GameObject spawnedProp = Instantiate(propPrefab, position, propRotation);
+                    //        spawnedProp.transform.parent = spawnedTile.transform; // Make the prop a child of the tile
+                    //
+                    //        // Store prop data in the dictionary
+                    //        if (!chunkProps.ContainsKey(tileCoord))
+                    //        {
+                    //            chunkProps[tileCoord] = new List<PropData>();
+                    //        }
+                    //
+                    //        PropData propData = new PropData
+                    //        {
+                    //            prefab = propPrefab,
+                    //            position = position,
+                    //            rotation = propRotation
+                    //        };
+                    //        chunkProps[tileCoord].Add(propData);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    // If props have been generated, reload them
+                    //    foreach (var propData in chunkProps[tileCoord])
+                    //    {
+                    //        GameObject spawnedProp = Instantiate(propData.prefab, propData.position, propData.rotation);
+                    //        spawnedProp.transform.parent = spawnedTile.transform;
+                    //    }
+                    //}
                 }
                 else
                 {

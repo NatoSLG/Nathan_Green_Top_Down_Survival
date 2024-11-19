@@ -14,9 +14,36 @@ public class CreateBeachEdgeTiles
     private const int TILE_FOREST = 3;
     private const int TILE_MOUNTAIN = 4;
 
-    public (GameObject tilePrefab, Quaternion rotation) GetBeachEdgeTile(Vector2 tileCoord)
+    public Dictionary<string, int> GetTileCheck(Vector2 tileCoord)
     {
-        Dictionary<string, int> tileCheck = createEdgeTiles.GetTileCheck(tileCoord);
+        int left = mapGenerator.GetTerrainType(tileCoord + Vector2.left);
+        int right = mapGenerator.GetTerrainType(tileCoord + Vector2.right);
+        int up = mapGenerator.GetTerrainType(tileCoord + Vector2.up);
+        int down = mapGenerator.GetTerrainType(tileCoord + Vector2.down);
+
+        int bottomLeft = mapGenerator.GetTerrainType(tileCoord + Vector2.down + Vector2.left);
+        int bottomRight = mapGenerator.GetTerrainType(tileCoord + Vector2.down + Vector2.right);
+        int topLeft = mapGenerator.GetTerrainType(tileCoord + Vector2.up + Vector2.left);
+        int topRight = mapGenerator.GetTerrainType(tileCoord + Vector2.up + Vector2.right);
+
+        var tileCheck = new Dictionary<string, int>
+        {
+            { "left", left },
+            { "right", right },
+            { "up", up },
+            { "down", down },
+            { "bottomLeft", bottomLeft },
+            { "bottomRight", bottomRight },
+            { "topRight", topRight },
+            { "topLeft", topLeft }
+        };
+
+        return tileCheck;
+    }
+
+    public (GameObject tilePrefab, Quaternion rotation) GetBeachEdgeTile(Vector2 tileCoord, int terrainType)
+    {
+        var tileCheck = GetTileCheck(tileCoord);
         if (tileCheck != null)
         {
             Debug.Log($"tileCheck for {tileCoord}: {string.Join(", ", tileCheck.Select(kvp => $"{kvp.Key}: {kvp.Value}"))}");
@@ -27,7 +54,7 @@ public class CreateBeachEdgeTiles
             return (null, Quaternion.identity);
         }
 
-        if (tileCheck != null)
+        if (tileCheck != null && terrainType == TILE_WATER)
         {
             // Define tiles and their expected types
             var expectedSingleWaterTile = new Dictionary<string, List<int>> // SINGLE WATER TILE
